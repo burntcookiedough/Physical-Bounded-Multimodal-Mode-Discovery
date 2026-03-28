@@ -1,0 +1,21 @@
+{
+    "motor_hp": 2,
+    "R_stator_ohm": 2.1,
+    "rated_current_A": 3.8,
+    "T_ambient_celsius": 25,
+    "T_max_insulation_celsius": 120,
+    "h_conv_W_m2K": 15,
+    "A_surface_m2": 0.18,
+    "eta_nominal": 0.84,
+    "a_max_g_ISO10816": 0.46,
+    "thermal_time_constant_sec": 360,
+    "shaft_freq_hz": 29.95,
+    "ball_pass_outer_hz": 107.36,
+    "ball_pass_inner_hz": 162.18,
+    "min_correlation_I_T": 0.5,
+    "epsilon_joule": 5.0,
+    "epsilon_efficiency": 0.05,
+    "max_dT_per_sec": 2.0,
+    "domain": "electromechanical",
+    "source_citation": "CWRU Bearing Data Center + NEMA MG-1 Standards"
+}
