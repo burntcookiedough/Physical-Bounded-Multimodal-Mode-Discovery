@@ -4,7 +4,7 @@ An unsupervised machine learning system for discovering hidden operational modes
 
 ---
 
-## ⚡ Quick Start (Zero-Friction Execution)
+## Quick Start 
 
 Want to see it work immediately without manual setup? Clone the repository and run the automated execution script for your platform. The script will automatically create an isolated environment, install dependencies, fetch the required CWRU sensor dataset, and run the pipeline test.
 
