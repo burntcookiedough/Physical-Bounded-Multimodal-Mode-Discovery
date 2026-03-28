@@ -10,7 +10,7 @@ Want to see it work immediately without manual setup? Clone the repository and r
 
 **1. Clone the repository:**
 ```bash
-git clone https://github.com/yourusername/physical-bounded-mode-discovery.git
+git clone https://github.com/burntcookiedough/physical-bounded-mode-discovery.git
 cd physical-bounded-mode-discovery
 ```
 
