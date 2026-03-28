@@ -125,7 +125,3 @@ All outputs and evaluation reports will be parsed into the `results/` folder.
 
 *   **NASA CMAPSS Validation:** Successfully uncovers $k=7$ physically viable regimes out of the multi-sensor temporal progression, cleanly rejecting mathematical noise modes. Highlights extensive cross-modal conflict rates (near 99%) emphasizing the need for grouped multimodal arbitration over generic single-space clustering.
 *   **CWRU Electromechanical Validation:** Defines $k=8$ coherent operational loads vs baseline $k=4$, maintaining roughly an 80% constraint coherence verification rate under strict bounding constraints (ISO 10816, Joule Heating Limits).
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
