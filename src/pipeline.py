@@ -271,6 +271,17 @@ class ModeDiscoveryPipeline:
                 }
                 for name, r in modality_results.items()
             },
+            'intermediate_data': {
+                'features': features,
+                'modality_feature_matrices': modality_feature_matrices,
+                'modality_labels': {name: r['labels'] for name, r in modality_results.items()},
+                'consensus': consensus,
+                'mode_centroids': mode_centroids,
+                'dom_sigs_per_mode': dom_sigs_per_mode,
+                'raw_labels_df': data['labels'],
+                'feature_cols': features.columns,
+                'metadata': metadata
+            },
             'consensus': {
                 'conflict_rate': conflict_rate,
                 'n_conflicts': int(consensus['conflict_flags'].sum()),

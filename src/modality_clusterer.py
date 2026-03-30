@@ -107,5 +107,5 @@ class ModalityClusterer:
             n = results[name]['n_clusters']
             noise = results[name]['noise_ratio']
             sil = results[name].get('silhouette', 'N/A')
-            print(f"  [{name}] → {n} clusters, {noise:.1%} noise, silhouette={sil}")
+            print(f"  [{name}] -> {n} clusters, {noise:.1%} noise, silhouette={sil}")
         return results

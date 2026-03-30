@@ -17,5 +17,18 @@
     "epsilon_efficiency": 0.05,
     "max_dT_per_sec": 2.0,
     "domain": "electromechanical",
-    "source_citation": "CWRU Bearing Data Center + NEMA MG-1 Standards"
+    "source_citation": "CWRU Bearing Data Center + NEMA MG-1 Standards",
+    "constraint_activation": {
+        "joule_heating": false,
+        "power_balance": false,
+        "cross_modal_coupling": {
+            "active": true,
+            "mode": "vibration_coherence",
+            "channels": ["vibration_de", "vibration_fe"],
+            "min_correlation": 0.60,
+            "note": "CWRU has no current sensor. DE-FE coherence substituted per domain adapter."
+        },
+        "vibration_bounds": true,
+        "thermal_inertia": false
+    }
 }

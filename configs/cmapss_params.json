@@ -30,5 +30,17 @@
     "pressure_indices": [4, 5, 6],
     "mechanical_indices": [7, 8, 14],
     "fuel_flow_index": 11,
-    "source_citation": "NASA CMAPSS Prognostics Data Repository"
+    "source_citation": "NASA CMAPSS Prognostics Data Repository",
+    "constraint_activation": {
+        "joule_heating": false,
+        "power_balance": true,
+        "cross_modal_coupling": {
+            "active": true,
+            "mode": "current_temperature",
+            "channels": ["T_group", "P_group"],
+            "min_correlation": 0.50
+        },
+        "vibration_bounds": false,
+        "thermal_inertia": true
+    }
 }
