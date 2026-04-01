@@ -41,6 +41,9 @@ nosetests.xml
 coverage.xml
 *,cover
 .pytest_cache/
+Important_notice.txt
+Project.txt
+Updated_project.txt
 
 # Translations
 *.mo
@@ -101,3 +104,4 @@ data/
 results/
 err.log
 output.log
+course-report-writer.md
