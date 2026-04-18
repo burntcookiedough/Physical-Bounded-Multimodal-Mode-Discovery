@@ -1,127 +1,164 @@
 # Physical-Bounded Multimodal Mode Discovery
 
-An unsupervised machine learning system for discovering hidden operational modes in complex industrial equipment. Designed for high-reliability systems (e.g., turbofans, bearings, and motors), this architecture correlates disparate multimodal sensor data while applying strict, explicit physical constraints (thermodynamic and electromechanical) to ensure discovered operational regimes and fault modes are physically feasible.
+An unsupervised machine learning system for discovering hidden operational modes in complex industrial equipment. The project is designed for high-reliability systems such as turbofans, bearings, and motors, and combines multimodal sensor analysis with explicit physical constraints so that discovered regimes and fault modes remain physically plausible.
 
----
+## Overview
 
-## Quick Start 
+The pipeline correlates multiple sensor modalities, clusters latent operating states, and then filters or relabels those states using thermodynamic or electromechanical feasibility rules. This helps distinguish meaningful operational modes from mathematically convenient but physically invalid clusters.
 
-Want to see it work immediately without manual setup? Clone the repository and run the automated execution script for your platform. The script will automatically create an isolated environment, install dependencies, fetch the required CWRU sensor dataset, and run the pipeline test.
+Core ideas in the repository include:
 
-**1. Clone the repository:**
+- Hierarchical consensus arbitration across modalities instead of relying on early feature fusion alone.
+- Physics feasibility filtering to reject clusters that violate known operating limits.
+- Physics-informed auto-labeling of discovered modes.
+- Constraint-bounded synthetic fault generation for low-density failure regions.
+- Cross-domain alignment utilities for comparing learned modes across datasets.
+
+## Quick Start
+
+If you want to run the project with the least manual setup, use the platform-specific bootstrap script. The script creates a virtual environment, installs Python dependencies, downloads the CWRU dataset, and launches the CWRU demo pipeline.
+
+### 1. Clone the repository
+
 ```bash
-git clone https://github.com/burntcookiedough/physical-bounded-mode-discovery.git
-cd physical-bounded-mode-discovery
+git clone https://github.com/burntcookiedough/Physical-Bounded-Multimodal-Mode-Discovery.git
+cd Physical-Bounded-Multimodal-Mode-Discovery
 ```
 
-**2. Run the automated script:**
+### 2. Run the automated setup script
 
-*   **Windows:**
-    Double-click `setup_and_run.bat` from Windows Explorer, or run in terminal:
-    ```cmd
-    setup_and_run.bat
-    ```
+Windows:
 
-*   **Linux / macOS:**
-    ```bash
-    chmod +x setup_and_run.sh
-    ./setup_and_run.sh
-    ```
-    
-The pipeline will execute, parse the data, evaluate the models, and output the final validation reports to the `results/` folder.
+```cmd
+setup_and_run.bat
+```
 
----
+Linux / macOS:
 
-## Key Features
+```bash
+chmod +x setup_and_run.sh
+./setup_and_run.sh
+```
 
-*   **Hierarchical Consensus Arbitration:** Resolves sensor disagreement during state transitions without early-fusion feature smearing. Conflicting states trigger flags that reveal transitional failure onsets.
-*   **Physics Feasibility Filter:** Validates data-driven density clusters against known conservation laws (Joule heating, ISO vibration, operational margins), directly removing mathematically spurious clusters.
-*   **Physics-Informed Auto Labeling (PIAML):** Auto-labels new geometric modes using severity metrics derived from pre-defined boundary conditions.
-*   **Generative Physics-Bounded Augmentation (PFBSFA):** In-domain interpolative generation of fault-state data strictly bounded by the physical boundaries of the operation limits. 
-*   **Cross-Domain Alignment & Causality Tracking:** Advanced structural fingerprinting for unsupervised mode sequence tracking and predictive temporal causality analysis across differing datasets.
+After the script finishes, generated outputs are written to the `results/` directory.
 
-## Manual Setup & Reproducibility 
+## Manual Setup
 
-If you prefer to manually control the environment or wish to test the NASA CMAPSS dataset sequentially, follow these instructions:
+Use the manual flow if you want more control over the environment or if you plan to run the NASA CMAPSS experiment in addition to CWRU.
 
 ### Prerequisites
 
-*   Python 3.9 or higher
+- Python 3.9 or higher
 
-**1. Create and activate a Virtual Environment:**
+### 1. Create and activate a virtual environment
 
-*   **Windows:**
-    ```cmd
-    python -m venv venv
-    venv\Scripts\activate
-    ```
-*   **Linux / macOS:**
-    ```bash
-    python3 -m venv venv
-    source venv/bin/activate
-    ```
+Windows:
 
-**2. Install dependencies:**
+```cmd
+python -m venv venv
+venv\Scripts\activate
+```
+
+Linux / macOS:
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+### 2. Install dependencies
+
 ```bash
 pip install -r requirements.txt
 ```
 
-### Data Placement & Preparation
+### 3. Prepare datasets
 
-The automatic script already downloads the `CWRU` database. If you would like to run the second validation experiment on `NASA CMAPSS`:
+The bootstrap scripts already download the CWRU dataset automatically by running `src/download_cwru.py`.
 
-Download the CMAPSS dataset manually from NASA's prognostic data repository, extract the archive, and place the `train_FD00X.txt`, `test_FD00X.txt`, and `RUL_FD00X.txt` text files inside the `data/cmapss/` directory.
+If you also want to run the NASA CMAPSS experiment, download the dataset manually from NASA's prognostics data repository and place the extracted files in `data/cmapss/`.
+
+Expected local layout:
 
 ```text
 data/
-├── cwru/             # Excludes via execution script pulling CWRU .mat files 
-└── cmapss/           # Contains NASA CMAPSS FD001.txt - FD004.txt and RUL files
++-- cwru/      # downloaded automatically by the setup script
+\-- cmapss/    # add NASA CMAPSS train/test/RUL text files here
 ```
 
-### Usage
+Recommended CMAPSS files include:
 
-Run the complete unsupervised evaluation pipeline covering multimodal baseline extraction, HDBSCAN clustering, Physics Arbitration, and Generative Feature Synthesis from the root directory:
+- `train_FD001.txt` through `train_FD004.txt`
+- `test_FD001.txt` through `test_FD004.txt`
+- `RUL_FD001.txt` through `RUL_FD004.txt`
+
+## Running the Pipeline
+
+From the repository root, run one of the following:
 
 ```bash
-# Evaluate on CWRU Dataset (Electromechanical constraints)
+# CWRU demo (electromechanical constraints)
 python -m src.pipeline --demo cwru
 
-# Evaluate on NASA CMAPSS Dataset (Thermodynamic constraints)
+# NASA CMAPSS demo (thermodynamic constraints)
 python -m src.pipeline --demo cmapss
 
-# Evaluate Both Demos sequentially
+# Run both demos sequentially
 python -m src.pipeline --demo both
 ```
 
-All outputs and evaluation reports will be parsed into the `results/` folder.
+Optional arguments:
+
+- `--data-dir` to point to a custom dataset folder
+- `--config-dir` to use alternate constraint files
+- `--results-dir` to write outputs somewhere other than `results/`
+
+## Outputs
+
+Pipeline runs create artifacts under `results/`, including text summaries and auxiliary files such as conflict pattern logs. The evaluation utilities under `evaluation_framework/` can also generate plots inside `evaluation_framework/output_plots/`.
 
 ## Repository Structure
 
 ```text
-├── configs/                # Constraint bounds (e.g., cmapss_params.json, cwru_params.json)
-├── data/                   # Raw sensor datasets (excluded via .gitignore)
-├── results/                # Output evaluation summaries and cluster performance metrics
-├── src/                    # Source Code
-│   ├── dataset_adapter.py      # Parsers for physical datasets (CWRU, CMAPSS)
-│   ├── feature_extractor.py    # Time-domain and frequency-domain feature processing
-│   ├── modality_clusterer.py   # Individual Sub-system HDBSCAN processing
-│   ├── consensus_arbiter.py    # Modality voting and conflict detection architecture
-│   ├── physics_filter.py       # Constraint boundary checking, scoring, and PIAML labeling
-│   ├── whitespace_features.py  # Generative fault modeling and Cross-Domain DCFP Alignment
-│   ├── baseline_pipeline.py    # Standard K-Means flat models for comparative ablation
-│   ├── imdti.py                # Inter-Mode Degradation Trajectory Index analysis 
-│   ├── download_cwru.py        # Automated CWRU dataset fetcher
-│   ├── conflict_pattern_library.py # Cross-modal violation pattern tracking
-│   ├── visualization.py        # Heatmaps and t-SNE generation outputs
-│   └── pipeline.py             # Evaluation Orchestrator
-├── tests/                  # Unit and integration tests for physical boundary components
-├── requirements.txt        # PIP dependencies
-├── setup_and_run.bat       # 1-click Execution Script (Windows)
-├── setup_and_run.sh        # 1-click Execution Script (Linux/macOS)
-└── README.md
+.
++-- configs/                     # Physical constraint definitions for each demo
++-- evaluation_framework/        # Supplementary evaluation and visualization modules
+|   +-- main.py
+|   +-- physics_constraints.py
+|   +-- multimodal_consensus.py
+|   \-- output_plots/           # Generated evaluation plots
++-- src/                         # Main end-to-end pipeline implementation
+|   +-- baseline_pipeline.py
+|   +-- conflict_pattern_library.py
+|   +-- consensus_arbiter.py
+|   +-- dataset_adapter.py
+|   +-- download_cwru.py
+|   +-- feature_extractor.py
+|   +-- imdti.py
+|   +-- modality_clusterer.py
+|   +-- physics_filter.py
+|   +-- pipeline.py
+|   +-- visualization.py
+|   \-- whitespace_features.py
++-- requirements.txt             # Python dependencies
++-- setup_and_run.bat            # Automated Windows setup + execution
++-- setup_and_run.sh             # Automated Linux/macOS setup + execution
++-- Project.txt                  # Project notes / reference material
+\-- README.md
 ```
 
-## Results and Observations
+Generated local directories such as `data/`, `results/`, and `venv/` are created during setup or execution and are not expected to be committed.
 
-*   **NASA CMAPSS Validation:** Successfully uncovers $k=7$ physically viable regimes out of the multi-sensor temporal progression, cleanly rejecting mathematical noise modes. Highlights extensive cross-modal conflict rates (near 99%) emphasizing the need for grouped multimodal arbitration over generic single-space clustering.
-*   **CWRU Electromechanical Validation:** Defines $k=8$ coherent operational loads vs baseline $k=4$, maintaining roughly an 80% constraint coherence verification rate under strict bounding constraints (ISO 10816, Joule Heating Limits).
+## Key Features
+
+- Hierarchical consensus arbitration to detect disagreement between modalities during state transitions.
+- Physics feasibility filtering using known operating constraints such as vibration, current, temperature, and turbofan state relationships.
+- Physics-Informed Auto Labeling (PIAML) for assigning semantic meaning to newly discovered clusters.
+- Physics-bounded synthetic augmentation for sparse fault-state regions.
+- Cross-domain mode alignment utilities for comparing analogous behaviors between datasets.
+
+## Reported Observations
+
+- NASA CMAPSS validation can uncover physically viable operational regimes while rejecting noise-like clusters that do not satisfy the imposed constraints.
+- CWRU validation separates coherent operating loads and fault-related behavior under strict electromechanical boundary checks.
+- Cross-modal conflict tracking helps expose transitions and disagreement patterns that single-space clustering can miss.
