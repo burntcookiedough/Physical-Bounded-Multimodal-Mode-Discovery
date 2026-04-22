@@ -125,3 +125,25 @@ All outputs and evaluation reports will be parsed into the `results/` folder.
 
 *   **NASA CMAPSS Validation:** Successfully uncovers $k=7$ physically viable regimes out of the multi-sensor temporal progression, cleanly rejecting mathematical noise modes. Highlights extensive cross-modal conflict rates (near 99%) emphasizing the need for grouped multimodal arbitration over generic single-space clustering.
 *   **CWRU Electromechanical Validation:** Defines $k=8$ coherent operational loads vs baseline $k=4$, maintaining roughly an 80% constraint coherence verification rate under strict bounding constraints (ISO 10816, Joule Heating Limits).
+
+MIT License
+
+Copyright (c) 2026 Ved Lawand
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
